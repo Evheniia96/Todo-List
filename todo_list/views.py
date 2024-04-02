@@ -1,3 +1,9 @@
 from django.shortcuts import render
+from django.views import generic
 
-# Create your views here.
+from todo_list.models import Task
+
+
+class IndexView(generic.ListView):
+    queryset = Task.objects.prefetch_related("tags")
+    template_name = "todo_list/index.html"
