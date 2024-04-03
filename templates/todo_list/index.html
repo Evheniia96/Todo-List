@@ -2,14 +2,25 @@
 
 {% block content %}
   <h1>TODO list</h1>
-{#  {% for post in posts %}#}
-{#    <p>Title: <a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></p>#}
-{#    <p>Content: {{ post.content }}</p>#}
-{#    <p>Author: {{ post.owner }}</p>#}
-{#    <p>Create time: {{ post.created_time }}</p>#}
-{#    <ul>#}
-{#      <li><strong>Count Comments:</strong> {{ num_comments }}</li>#}
-{#    </ul>#}
-{#  {% endfor %}#}
-
+    {% if task_list %}
+    <div>
+      {% for task in task_list %}
+        <p class="font-weight-bold">
+          {{ task.content }}
+            {% if task.is_done %}
+          <p class="font-weight-bold">Done</p>
+            {% else %}
+            <p class="font-weight-bold">Not done</p>
+          {% endif %}
+        <p class="font-weight-bold">Created:
+          {{ task.deadline }}
+      <p>
+      Tags:
+      {% for tag in task.tag.all %}
+        {{ tag.name }}
+          {% empty %}
+          <p>No tags!</p>
+      {% endfor %}
+      {% endfor %}</div>
+    {% endif %}
 {% endblock %}
