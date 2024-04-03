@@ -7,7 +7,6 @@ from todo_list.models import Task, Tag
 
 
 class IndexView(generic.ListView):
-    # queryset = Task.objects.prefetch_related("tags")
     model = Task
     template_name = "todo_list/index.html"
 
@@ -19,14 +18,12 @@ class TaskCreateView(generic.CreateView):
 
 
 class TaskUpdateView(generic.UpdateView):
-
     model = Task
     fields = "__all__"
     success_url = reverse_lazy("todo_list:index")
 
 
 class TaskDeleteView(generic.DeleteView):
-
     model = Task
     success_url = reverse_lazy("todo_list:index")
 
@@ -37,7 +34,6 @@ class TagsListView(generic.ListView):
 
 
 class TagTaskListView(generic.ListView):
-
     model = Task
     fields = "__all__"
     success_url = reverse_lazy("todo_list:index")
@@ -46,8 +42,7 @@ class TagTaskListView(generic.ListView):
         task = get_object_or_404(Task, pk=self.kwargs["pk"])
         task.is_done = not task.is_done
         task.save()
-        return HttpResponseRedirect(
-            reverse("todo_list:index"))
+        return HttpResponseRedirect(reverse("todo_list:index"))
 
 
 class TagCreateView(generic.CreateView):
@@ -57,14 +52,11 @@ class TagCreateView(generic.CreateView):
 
 
 class TagUpdateView(generic.UpdateView):
-
     model = Tag
     fields = "__all__"
     success_url = reverse_lazy("todo_list:index")
 
 
 class TagDeleteView(generic.DeleteView):
-
     model = Tag
     success_url = reverse_lazy("todo_list:index")
-
